@@ -1,0 +1,28 @@
+<h1>🔍 Поиск статей</h1>
+
+<%= form_with url: search_path, method: :get do |f| %>
+  <p>
+    <%= f.text_field :query, placeholder: "Введите название статьи...", value: params[:query] %>
+    <%= f.submit "Найти" %>
+  </p>
+<% end %>
+
+<hr>
+
+<% if @articles && @articles.any? %>
+  <h2>Найдено статей: <%= @articles.count %></h2>
+  
+  <% @articles.each do |article| %>
+    <div style="margin: 15px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+      <h3><%= link_to article.title, article %></h3>
+      <p><strong>Автор:</strong> <%= article.author %></p>
+      <p><strong>Категория:</strong> <%= article.category.name %></p>
+      <p><%= truncate(article.content, length: 150) %></p>
+    </div>
+  <% end %>
+<% elsif params[:query].present? %>
+  <p> По вашему запросу ничего не найдено</p>
+<% end %>
+
+<hr>
+<%= link_to "← Назад к статьям", articles_path %>

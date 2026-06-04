@@ -1,2 +1,12 @@
-<h1>Categories#index</h1>
-<p>Find me in app/views/categories/index.html.erb</p>
+<h1>Все категории</h1>
+
+<ul>
+  <% @categories.each do |name, id| %>
+    <li style="margin: 10px 0;">
+      <%= link_to name, category_path(id), style: "font-size: 18px; font-weight: bold;" %>
+    </li>
+  <% end %>
+</ul>
+
+<hr>
+<%= link_to "← К статьям", articles_path %>

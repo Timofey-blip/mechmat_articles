@@ -1,2 +1,19 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<h1><%= @category.name %></h1>
+
+<h2>Статьи в этой категории:</h2>
+
+<% if @articles.any? %>
+  <% @articles.each do |article| %>
+    <div style="margin: 15px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9;">
+      <h3><%= link_to article.title, article %></h3>
+      <p><strong>Автор:</strong> <%= article.author %></p>
+      <p><strong>Просмотров:</strong> <%= article.views_count %></p>
+      <p><%= truncate(article.content, length: 150) %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p>В этой категории пока нет статей</p>
+<% end %>
+
+<hr>
+<%= link_to "← Назад к категориям", categories_path %>
