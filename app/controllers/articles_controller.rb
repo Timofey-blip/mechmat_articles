@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   def index
     @articles = Article.where(is_published: true)
+    @category_names = Category.pluck(:name)
   end
 
   def show
@@ -36,7 +37,7 @@ class ArticlesController < ApplicationController
 
   def search
     if params[:query].present?
-      @articles = Article.where("title ILIKE ?", "%#{params[:query]}%")
+      @articles = Article.where("title LIKE ?", "%#{params[:query]}%")
     else
       @articles = Article.all
     end
