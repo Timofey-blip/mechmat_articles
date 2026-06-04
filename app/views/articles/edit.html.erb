@@ -1,0 +1,40 @@
+<h1>✏️ Редактировать статью</h1>
+
+<%= form_with model: @article do |f| %>
+  <% if @article.errors.any? %>
+    <div style="color: red; background: #ffe6e6; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+      <h2><%= pluralize(@article.errors.count, "ошибка") %>:</h2>
+      <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title, required: true, size: 50 %>
+  </p>
+
+  <p>
+    <%= f.label :author %><br>
+    <%= f.text_field :author, required: true %>
+  </p>
+
+  <p>
+    <%= f.label :category_id, "Категория" %><br>
+    <%= f.collection_select :category_id, Category.all, :id, :name, required: true %>
+  </p>
+
+  <p>
+    <%= f.label :content %><br>
+    <%= f.text_area :content, rows: 15, required: true %>
+  </p>
+
+  <p>
+    <%= f.submit "Обновить статью" %>
+  </p>
+<% end %>
+
+<%= link_to "← Отмена", @article %>

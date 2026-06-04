@@ -1,0 +1,22 @@
+<h1>Все статьи</h1>
+
+<%= link_to "Создать статью", new_article_path, class: "button" %>
+<%= link_to "Поиск", search_path, class: "button" %>
+<%= link_to "Категории", categories_path, class: "button" %>
+
+<hr>
+
+<% if @articles.any? %>
+  <% @articles.each do |article| %>
+    <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+      <h2><%= link_to article.title, article %></h2>
+      <p><strong>Автор:</strong> <%= article.author %></p>
+      <p><strong>Категория:</strong> <%= article.category.name %></p>
+      <p><strong>Просмотров:</strong> <%= article.views_count %></p>
+      <p><%= truncate(article.content, length: 200) %></p>
+      <small>Опубликовано: <%= article.created_at.strftime("%d.%m.%Y") %></small>
+    </div>
+  <% end %>
+<% else %>
+  <p>Пока нет опубликованных статей</p>
+<% end %>

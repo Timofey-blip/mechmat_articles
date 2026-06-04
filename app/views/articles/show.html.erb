@@ -1,0 +1,53 @@
+<h1><%= @article.title %></h1>
+
+<p><strong>Автор:</strong> <%= @article.author %></p>
+<p><strong>Категория:</strong> <%= @article.category.name %></p>
+<p><strong>Просмотров:</strong> <%= @article.views_count %></p>
+<p><strong>Статус:</strong> <%= @article.is_published ? "✅ Опубликовано" : "⚠️ Черновик" %></p>
+<p><strong>Дата создания:</strong> <%= @article.created_at.strftime("%d.%m.%Y %H:%M") %></p>
+
+<hr>
+
+<div style="margin: 20px 0; line-height: 1.6;">
+  <%= simple_format(@article.content) %>
+</div>
+
+<hr>
+
+<%= link_to "✏️ Редактировать", edit_article_path(@article) %> |
+<%= link_to "📋 Назад к статьям", articles_path %>
+
+<%= button_to @article.is_published ? "🔒 Скрыть" : "✅ Опубликовать", publish_article_path(@article), method: :patch %>
+
+<hr>
+
+<h2>💬 Комментарии (<%= @article.comments.count %>)</h2>
+
+<% if @article.comments.any? %>
+  <% @article.comments.each do |comment| %>
+    <div style="margin: 10px 0; padding: 10px; background: #f9f9f9; border-left: 3px solid #007bff;">
+      <p><strong><%= comment.author %>:</strong> <%= comment.body %></p>
+      <small><%= comment.created_at.strftime("%d.%m.%Y %H:%M") %></small>
+      <%= button_to "🗑️ Удалить", article_comment_path(@article, comment), method: :delete, data: { confirm: "Удалить комментарий?" } %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Пока нет комментариев. Будьте первым!</p>
+<% end %>
+
+<h3>✍️ Добавить комментарий</h3>
+<%= form_with model: [@article, @comment] do |f| %>
+  <p>
+    <%= f.label :author, "Ваше имя" %><br>
+    <%= f.text_field :author, required: true %>
+  </p>
+  
+  <p>
+    <%= f.label :body, "Комментарий" %><br>
+    <%= f.text_area :body, rows: 3, required: true %><br>
+  </p>
+  
+  <p>
+    <%= f.submit "Отправить комментарий" %>
+  </p>
+<% end %>
