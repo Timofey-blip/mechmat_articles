@@ -1,22 +1,19 @@
-<h1>Все статьи</h1>
-
-<%= link_to "Создать статью", new_article_path, class: "button" %>
-<%= link_to "Поиск", search_path, class: "button" %>
-<%= link_to "Категории", categories_path, class: "button" %>
-
-<hr>
+<h1>📰 Все статьи</h1>
 
 <% if @articles.any? %>
   <% @articles.each do |article| %>
-    <div style="margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
-      <h2><%= link_to article.title, article %></h2>
-      <p><strong>Автор:</strong> <%= article.author %></p>
-      <p><strong>Категория:</strong> <%= article.category.name %></p>
-      <p><strong>Просмотров:</strong> <%= article.views_count %></p>
+    <div style="margin-bottom: 20px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <h2><%= link_to article.title, article, style: "color: #2c3e50; text-decoration: none;" %></h2>
+      <p><strong>✍️ Автор:</strong> <%= article.author %></p>
+      <p><strong>📂 Категория:</strong> <%= article.category.name %></p>
+      <p><strong>👁 Просмотров:</strong> <%= article.views_count %></p>
       <p><%= truncate(article.content, length: 200) %></p>
-      <small>Опубликовано: <%= article.created_at.strftime("%d.%m.%Y") %></small>
+      <small style="color: #7f8c8d;">📅 Опубликовано: <%= article.created_at.strftime("%d.%m.%Y") %></small>
     </div>
   <% end %>
 <% else %>
-  <p>Пока нет опубликованных статей</p>
+  <div style="background: white; padding: 30px; border-radius: 8px; text-align: center;">
+    <p style="font-size: 18px; color: #7f8c8d;">Пока нет опубликованных статей</p>
+    <%= link_to "Создать первую статью", new_article_path, class: "button" %>
+  </div>
 <% end %>

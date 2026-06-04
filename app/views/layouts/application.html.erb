@@ -1,28 +1,106 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Mechmat Articles" %></title>
+    <title>Mechmat Articles</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Mechmat Articles">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f5f5;
+      }
+      
+      .navbar {
+        background: #2c3e50;
+        color: white;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+      }
+      
+      .navbar h1 {
+        margin: 0 0 10px 0;
+        font-size: 24px;
+      }
+      
+      .navbar a {
+        color: #3498db;
+        text-decoration: none;
+        margin-right: 15px;
+        font-weight: bold;
+      }
+      
+      .navbar a:hover {
+        color: #2ecc71;
+        text-decoration: underline;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      
+      .notice {
+        background: #2ecc71;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+      
+      .alert {
+        background: #e74c3c;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+      
+      .button {
+        display: inline-block;
+        background: #3498db;
+        color: white;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      
+      .button:hover {
+        background: #2980b9;
+      }
+    </style>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="navbar">
+      <div class="container">
+        <h1>📚 Мехмат Статьи</h1>
+        <nav>
+          <%= link_to "🏠 Главная", articles_path %>
+          <%= link_to "📝 Создать статью", new_article_path %>
+          <%= link_to "🔍 Поиск", search_path %>
+          <%= link_to "📂 Категории", categories_path %>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+
+      <% if alert %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
