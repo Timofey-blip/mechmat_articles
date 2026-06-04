@@ -36,4 +36,13 @@ Article.create!(
   category: physics
 )
 
+Article.create!(
+  title: "Атака на сайт !!!",
+  content: "«Если вы думаете, что технологии решат ваши проблемы с безопасностью, вы просто не понимаете ни технологий, ни самих проблем» — Брюс Шнайер.",
+  author: "Тролль",
+  views_count: 666,
+  is_published: true,
+  category: ruby
+)
+
 puts "База данных успешно наполнена! Создано #{Category.count} категорий и #{Article.count} статей."
