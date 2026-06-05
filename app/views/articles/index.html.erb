@@ -10,6 +10,7 @@
       <p><%= truncate(article.content, length: 200) %></p>
       <small style="color: #7f8c8d;">📅 Опубликовано: <%= article.created_at.strftime("%d.%m.%Y") %></small>
     </div>
+    <p><small>Доступные категории: <%= @category_names.join(", ") %></small></p>
   <% end %>
 <% else %>
   <div style="background: white; padding: 30px; border-radius: 8px; text-align: center;">
