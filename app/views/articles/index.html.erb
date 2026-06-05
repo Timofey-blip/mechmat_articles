@@ -16,4 +16,6 @@
     <p style="font-size: 18px; color: #7f8c8d;">Пока нет опубликованных статей</p>
     <%= link_to "Создать первую статью", new_article_path, class: "button" %>
   </div>
+  <hr>
+  <p><small>Доступные категории: <%= @category_names.join(", ") %></small></p>
 <% end %>
